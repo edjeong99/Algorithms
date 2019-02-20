@@ -6,7 +6,7 @@ import sys
 
 def climbing_stairs(n, cache=None):
     if cache is None:
-        cache = 0
+        cache = [0 for i in range(n+1)]
 
     if n == 0:  # if input is 0, return 0.  this is true only when input is 0
         return 1
@@ -19,11 +19,13 @@ def climbing_stairs(n, cache=None):
     elif n == 3:  # if 3 steps left, there are 4 ways to climb
         return 4
 
+    if cache[n] > 0:
+        return cache[n]
     else:
-        cache = climbing_stairs(
+        val = climbing_stairs(
             n - 1, cache) + climbing_stairs(n - 2, cache) + climbing_stairs(n - 3, cache)
-
-    return cache
+        cache[n] = val
+        return val
 
 
 if __name__ == "__main__":
@@ -36,3 +38,8 @@ if __name__ == "__main__":
 
 
 climbing_stairs(3)
+
+
+'''
+
+'''
