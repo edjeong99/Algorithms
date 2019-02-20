@@ -7,38 +7,26 @@ Item = namedtuple('Item', ['index', 'size', 'value'])
 
 
 def knapsack_solver(items, capacity):
-
+    print(f'size = {len(items)} items = {items[len(items)-1]}')
     # base
     if len(items) == 1:
+        #    print(f'LAST ITEM temp = {temp}')
         if items[0].size > capacity:
             return 0
         else:
             return items[0].value
 
     temp = items.pop()
-
+    #print(f'temp = {temp}')
     if temp.size > capacity:
+        print(f'out of size capacity = {capacity}  temp = {temp}')
         return knapsack_solver(items, capacity)
     else:
-        return max(temp.value + knapsack_solver(items, capacity - temp.size), knapsack_solver(items, capacity))
+        print(f'FIT capacity = {capacity}  temp = {temp}')
 
+        return max(temp.value + knapsack_solver(items, capacity - temp.size),
+                   knapsack_solver(items, capacity))
 
-'''
-    result = []
-    temp = []
-    temp.append(items.pop())
-    print(temp)
-    print(len(items))
-
-    # base
-    if len(items) < 1:
-        return
-    # recursive part
-    result.append(temp.extend(knapsack_solver(items, capacity)))
-    result.append([].extend(knapsack_solver(items, capacity)))
-    print(result)
-    return result
-'''
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
