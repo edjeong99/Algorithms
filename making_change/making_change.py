@@ -9,25 +9,26 @@ def making_change(amount, denominations, coin=None, cache=None):
     if coin is None:  # coin is index for denominations
         coin = len(denominations)-1
 
+
 # cache for quicker run time
-    if cache is None:
-        cache = {i: 0 for i in range(amount + 1)}
+ #   if cache is None:
+ #       cache = {i: 0 for i in range(amount + 1)}
 
    # base case for recursive - if amount is reached return true
 
     if amount < 0 or coin < 0:
         return 0
-    elif cache[amount] > 0:
-        print(f'RETURNING  amount = {amount}  cache = {cache[amount]}')
-        return cache[amount]
+ #   elif cache[amount] > 0:  # check if all coin is used for this amount
+ #       print(f'RETURNING  amount = {amount}  cache = {cache[amount]}')
+ #       return cache[amount]
     elif amount == 0:
         return 1
 
-    cache[amount] = making_change(amount, denominations, coin-1, cache) + \
-        making_change(
-            amount - denominations[coin], denominations, coin,  cache)
-    print(f'ASSIGNING  amount = {amount}  cache = {cache[amount]}')
-    return cache[amount]
+ #   cache[amount] = making_change(amount, denominations, coin-1) + \
+ #       making_change(amount - denominations[coin], denominations, coin)
+ #   print(f'ASSIGNING  amount = {amount}  cache = {cache[amount]}')
+    return making_change(amount, denominations, coin-1) + \
+        making_change(amount - denominations[coin], denominations, coin)
 
 
 if __name__ == "__main__":
